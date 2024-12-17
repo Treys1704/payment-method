@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { CardData } from "../types";
 import { useState } from "react";
+import { Check } from "lucide-react";
 
 interface AddCardProps {
   onSave: (data: Partial<CardData>) => void;
@@ -12,12 +13,8 @@ export function AddCard({ onSave }: AddCardProps) {
     cardNumber: "5774 3482 1240 9001",
     expiryMonth: "09",
     expiryYear: "29",
+    cvv: "123",
   });
-
-  // Supprimez ce useEffect
-  // useEffect(() => {
-  //   onSave(formData)
-  // }, [formData, onSave])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -25,15 +22,13 @@ export function AddCard({ onSave }: AddCardProps) {
   };
 
   const formatCardNumber = (value: string) => {
-    const v = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
-    const matches = v.match(/\d{4,16}/g);
-    const match = (matches && matches[0]) || "";
-    const parts = [];
-    for (let i = 0, len = match.length; i < len; i += 4) {
-      parts.push(match.substring(i, i + 4));
+    const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '')
+    const parts = []
+    for (let i = 0; i < v.length; i += 4) {
+      parts.push(v.slice(i, i + 4))
     }
-    return parts.join(" ");
-  };
+    return parts.join(' ').trim().slice(0, 19)
+  }
 
   return (
     <motion.div
@@ -58,20 +53,18 @@ export function AddCard({ onSave }: AddCardProps) {
           <input
             type="text"
             name="nameOnCard"
-            value={formData.nameOnCard}
             onChange={handleInputChange}
-            className="text-xl text-gray-700 uppercase bg-transparent border-b border-gray-300 focus:outline-none focus:border-gray-700"
-            placeholder="NAME ON CARD"
+            className="text-xl text-gray-700 uppercase bg-transparent border-gray-300 focus:outline-none focus:border-gray-700"
+            placeholder="TRESOR MANOCK"
           />
 
           <div className="flex items-center gap-1">
-          <div className="flex gap-1">
+            <div className="flex gap-1">
               <input
                 type="text"
                 name="expiryMonth"
-                value={formData.expiryMonth}
                 onChange={handleInputChange}
-                className="w-8 text-center bg-transparent border-b border-gray-300 focus:outline-none focus:border-gray-700"
+                className="w-8 text-center bg-transparent border-gray-300 focus:outline-none focus:border-gray-700"
                 placeholder="MM"
                 maxLength={2}
               />
@@ -79,9 +72,8 @@ export function AddCard({ onSave }: AddCardProps) {
               <input
                 type="text"
                 name="expiryYear"
-                value={formData.expiryYear}
                 onChange={handleInputChange}
-                className="w-8 text-center bg-transparent border-b border-gray-300 focus:outline-none focus:border-gray-700"
+                className="w-8 text-center bg-transparent border-gray-300 focus:outline-none focus:border-gray-700"
                 placeholder="YY"
                 maxLength={2}
               />
@@ -95,22 +87,21 @@ export function AddCard({ onSave }: AddCardProps) {
             name="cardNumber"
             value={formData.cardNumber}
             onChange={(e) => {
-              const formatted = formatCardNumber(e.target.value);
-              setFormData((prev) => ({ ...prev, cardNumber: formatted }));
-            }}
-            className="text-2xl bg-transparent border-b border-gray-300 focus:outline-none focus:border-gray-700 w-3/4"
-            placeholder="CARD NUMBER"
+                const formatted = formatCardNumber(e.target.value)
+                setFormData(prev => ({ ...prev, cardNumber: formatted }))
+              }}
+            className="text-2xl bg-transparent border-gray-300 focus:outline-none focus:border-gray-700 w-3/4"
+            placeholder="0000 0000 0000 0000"
             maxLength={19}
           />
           <div className="flex items-center gap-4">
-            <div className="flex gap-1">
+            <div className="flex mt-1 mr-3">
               <input
-                type="text"
-                name="expiryYear"
-                value={formData.expiryYear}
+                type="password"
+                name="cvv"
                 onChange={handleInputChange}
-                className="w-8 text-center bg-transparent border-b border-gray-300 focus:outline-none focus:border-gray-700"
-                placeholder="YY"
+                className="w-10 text-left bg-transparent focus:outline-none focus:border-gray-700"
+                placeholder="CVV"
                 maxLength={3}
               />
             </div>
@@ -126,8 +117,9 @@ export function AddCard({ onSave }: AddCardProps) {
         <div className="absolute bottom-4 right-4">
           <button
             onClick={() => onSave(formData)}
-            className="px-4 py-2 text-sm bg-black text-white rounded-full hover:bg-gray-800 transition-colors mr-4"
+            className="px-4 py-2 text-sm bg-black flex items-center gap-2 text-white rounded hover:bg-gray-800 transition-colors mr-5"
           >
+            <Check size={16}/>
             Save
           </button>
         </div>

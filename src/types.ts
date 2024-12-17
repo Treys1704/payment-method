@@ -6,6 +6,7 @@ export type CardData = {
   cardType: "visa" | "mastercard";
   nameOnCard?: string;
   cardNumber?: string;
+  cvv?: string;
 };
 
 export type CardState = {

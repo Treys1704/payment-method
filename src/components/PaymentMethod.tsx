@@ -14,6 +14,7 @@ const initialCards: CardData[] = [
     cardType: 'visa',
     nameOnCard: 'John Doe',
     cardNumber: '5344 3422 7930 3822',
+    cvv: '123',
   },
   {
     id: '2',
@@ -23,6 +24,7 @@ const initialCards: CardData[] = [
     cardType: 'mastercard',
     nameOnCard: 'Jane Smith',
     cardNumber: '4520 1234 5678 9977',
+    cvv: '456',
   },
 ]
 
@@ -73,14 +75,14 @@ export default function PaymentMethod() {
           {state.isAdding ? (
             <button
               onClick={() => setState({ isEditing: false, isAdding: false, selectedCard: null })}
-              className="px-4 py-2 text-sm bg-white text-black rounded-full hover:bg-gray-100 transition-colors"
+              className="px-4 py-2 text-sm bg-white text-black rounded hover:bg-gray-100 transition-colors"
             >
               Cancel
             </button>
           ) : (
             <button
               onClick={() => setState({ isEditing: false, isAdding: true, selectedCard: null })}
-              className="px-4 py-2 text-sm bg-white text-black rounded-full hover:bg-gray-100 transition-colors flex items-center gap-2"
+              className="px-4 py-2 text-sm bg-white text-black rounded hover:bg-gray-100 transition-colors flex items-center gap-2"
             >
               <span>+</span> Add card
             </button>
@@ -95,7 +97,6 @@ export default function PaymentMethod() {
                 handleAddCard(data)
                 setState({ isEditing: false, isAdding: false, selectedCard: null })
               }} 
-              //setAddCardData={setAddCardData}
             />
           ) : (
             <motion.div className="space-y-4">

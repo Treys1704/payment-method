@@ -15,7 +15,7 @@ export function CardForm({ card, onSave, onCancel, isNewCard = false }: CardForm
     cardNumber: card?.cardNumber || '',
     expiryMonth: card?.expiryMonth || '',
     expiryYear: card?.expiryYear || '',
-    cvv: '',
+    cvv: card?.cvv || '',
   })
 
   const formatCardNumber = (value: string) => {
