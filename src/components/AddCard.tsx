@@ -54,6 +54,7 @@ export function AddCard({ onSave }: AddCardProps) {
             type="text"
             name="nameOnCard"
             onChange={handleInputChange}
+            autoComplete="off"
             className="text-xl text-gray-700 uppercase bg-transparent border-gray-300 focus:outline-none focus:border-gray-700"
             placeholder="TRESOR MANOCK"
           />
