@@ -12,7 +12,7 @@ const initialCards: CardData[] = [
     expiryMonth: '07',
     expiryYear: '27',
     cardType: 'visa',
-    nameOnCard: 'John Doe',
+    nameOnCard: 'Kumail Nanji',
     cardNumber: '5344 3422 7930 3822',
     cvv: '123',
   },
